@@ -10,7 +10,7 @@ A production-ready framework for High-Order Optimization (HOPE) with:
 __version__ = "0.1.0"
 
 from chronos.core.problem import InnerProblem, OuterOptimizer
-from chronos.core.state import MetaState, Trajectory, Checkpoint
+from chronos.core.state import Checkpoint, MetaState, Trajectory
 
 __all__ = [
     "InnerProblem",

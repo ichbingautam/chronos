@@ -7,12 +7,12 @@ Provides utilities for measuring key performance indicators:
 - Staleness impact on convergence
 """
 
-import time
-from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from __future__ import annotations
 
-import torch
-from torch import Tensor
+import time
+from collections.abc import Callable
+from dataclasses import dataclass
+from typing import Any
 
 from chronos.utils.logging import get_logger
 
@@ -96,7 +96,7 @@ class NetworkTracker:
         self._original_bytes = 0  # Before compression
         self._skipped = 0
 
-    def track_send(self, data: bytes, original_size: Optional[int] = None) -> None:
+    def track_send(self, data: bytes, original_size: int | None = None) -> None:
         """Track bytes sent."""
         self._bytes_sent += len(data)
         self._messages_sent += 1
@@ -168,10 +168,10 @@ class StalenessMetrics:
 
     avg_staleness: float
     max_staleness: int
-    staleness_histogram: Dict[int, int]  # staleness -> count
+    staleness_histogram: dict[int, int]  # staleness -> count
 
     # Convergence correlation
-    loss_by_staleness: Dict[int, float]  # avg loss for each staleness level
+    loss_by_staleness: dict[int, float]  # avg loss for each staleness level
     commits_rejected: int
     acceptance_rate: float
 
@@ -180,8 +180,8 @@ class StalenessTracker:
     """Track staleness and its impact on optimization."""
 
     def __init__(self):
-        self._staleness_counts: Dict[int, int] = {}
-        self._staleness_losses: Dict[int, List[float]] = {}
+        self._staleness_counts: dict[int, int] = {}
+        self._staleness_losses: dict[int, list[float]] = {}
         self._rejected = 0
         self._accepted = 0
 
@@ -269,7 +269,7 @@ def compare_configurations(
     compare_run_fn: Callable,
     num_iterations: int = 100,
     metric: str = "loss"
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Compare two configurations and compute relative improvement.
 
