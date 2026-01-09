@@ -11,11 +11,11 @@ Key concepts:
 - Memory informs future optimization decisions
 """
 
+import math
 import time
+from collections import deque
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
-from collections import deque
-import math
 
 import torch
 from torch import Tensor

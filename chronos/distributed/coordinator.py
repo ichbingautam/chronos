@@ -19,15 +19,15 @@ from typing import Any, Callable, Dict, List, Optional
 import zmq
 
 from chronos.core.problem import OuterOptimizer
-from chronos.core.state import MetaState, Trajectory, Checkpoint
+from chronos.core.state import Checkpoint, MetaState, Trajectory
 from chronos.core.version import BoundedVersionQueue, VersionTracker
 from chronos.distributed.protocols import (
-    MessageType,
     CheckoutRequest,
     CheckoutResponse,
     CommitRequest,
     CommitResponse,
     ErrorResponse,
+    MessageType,
     parse_message,
 )
 from chronos.utils.logging import get_logger

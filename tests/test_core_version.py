@@ -1,12 +1,13 @@
 """Tests for version management."""
 
-import pytest
-import torch
 import threading
 import time
 
-from chronos.core.version import BoundedVersionQueue, VersionTracker
+import pytest
+import torch
+
 from chronos.core.state import MetaState, Trajectory
+from chronos.core.version import BoundedVersionQueue, VersionTracker
 
 
 class TestBoundedVersionQueue:

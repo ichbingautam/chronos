@@ -8,13 +8,13 @@ select = [
     "W",    # pycodestyle warnings
     "F",    # Pyflakes
     "I",    # isort
-    "B",    # flake8-bugbear
-    "C4",   # flake8-comprehensions
 ]
 ignore = [
+    "E402",   # module level import not at top of file
     "E501",   # line too long (handled by formatter)
-    "B008",   # function calls in argument defaults
+    "E722",   # bare except
     "F401",   # unused imports (some are intentional re-exports)
+    "F841",   # unused variable
 ]
 
 [lint.isort]

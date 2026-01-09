@@ -1,10 +1,11 @@
 """Tests for core state management."""
 
-import pytest
 import time
+
+import pytest
 import torch
 
-from chronos.core.state import MetaState, Trajectory, TrajectoryStep, Checkpoint
+from chronos.core.state import Checkpoint, MetaState, Trajectory, TrajectoryStep
 
 
 class TestTrajectoryStep:

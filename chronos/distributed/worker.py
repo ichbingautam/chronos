@@ -18,8 +18,8 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, Iterator, Optional
 
-import zmq
 import torch
+import zmq
 from torch import Tensor
 
 from chronos.core.problem import InnerProblem

@@ -9,8 +9,8 @@ from chronos.continuum.memory import (
     MemoryEntry,
 )
 from chronos.continuum.timescale import (
-    MultiTimescaleOptimizer,
     MultiTimescaleConfig,
+    MultiTimescaleOptimizer,
     TimescaleConfig,
     create_hierarchical_optimizer,
 )

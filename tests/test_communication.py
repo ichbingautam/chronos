@@ -3,19 +3,19 @@
 import pytest
 import torch
 
+from chronos.communication.compression import (
+    compress_gradients,
+    decompress_gradients,
+    dequantize,
+    quantize,
+    topk_desparsify,
+    topk_sparsify,
+)
 from chronos.communication.sparse import (
     SignificanceFilter,
     SignificanceFilterConfig,
-    compute_significance,
     compute_delta_norm,
-)
-from chronos.communication.compression import (
-    topk_sparsify,
-    topk_desparsify,
-    quantize,
-    dequantize,
-    compress_gradients,
-    decompress_gradients,
+    compute_significance,
 )
 
 
