@@ -83,15 +83,18 @@ class TestTrajectory:
         """Test computing parameter delta."""
         trajectory = Trajectory(version=1, worker_id="test", outer_params={})
 
-        init_w = torch.randn(3, 3)
+        init_w = torch.ones(3, 3)
         trajectory.add_step(0, {"w": init_w.clone()}, None, 1.0)
 
+        # Add second step with updated params
         final_w = init_w + 0.1
+        trajectory.add_step(1, {"w": final_w.clone()}, None, 0.5)
         trajectory.finalize({"w": final_w})
 
         delta = trajectory.get_param_delta()
         assert delta is not None
-        assert torch.allclose(delta["w"], torch.tensor(0.1), atol=1e-5)
+        assert "w" in delta
+        assert torch.allclose(delta["w"], torch.ones(3, 3) * 0.1, atol=1e-5)
 
 
 class TestMetaState:
