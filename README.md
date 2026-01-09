@@ -8,7 +8,7 @@
 
 > *"When your optimization loop needs its own optimization loop, everything from networking to synchronization breaks."*
 
-Chronos is a production-ready framework for **distributed bilevel/nested optimization** that addresses the systems challenges of scaling High-Order Optimization. Standard distributed training breaks down when you add meta-optimization – Chronos fixes that.
+Chronos is a framework for **distributed bilevel/nested optimization** that addresses the systems challenges of scaling High-Order Optimization. Standard distributed training breaks down when you add meta-optimization – Chronos fixes that.
 
 ---
 
@@ -216,7 +216,7 @@ pytest tests/ -v
 
 ## 📖 References
 
-- [The Hidden Cost of Smart AI: Scaling Nested Optimization](https://medium.com/@ichbingautam) - Blog post explaining the systems challenges
+- [The Hidden Cost of Smart AI: Scaling Nested Optimization is a Systems Nightmare](https://gautam-shubham.medium.com/the-hidden-cost-of-smart-ai-scaling-nested-optimization-is-a-systems-nightmare-48cf4d71afe2) - Blog post explaining the systems challenges
 - [Nested Learning (NeurIPS 2025)](http://abehrouz.github.io/files/NL.pdf) - Theoretical foundations
 - [TorchOpt](https://github.com/metaopt/torchopt) - Differentiable optimization library
 - [Betty](https://github.com/leopard-ai/betty) - Bilevel optimization library
