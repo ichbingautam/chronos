@@ -46,7 +46,7 @@ class TestTrajectory:
 
     def test_add_step(self):
         """Test adding steps to trajectory."""
-        trajectory = Trajectory(version=1, worker_id="test")
+        trajectory = Trajectory(version=1, worker_id="test", outer_params={})
 
         trajectory.add_step(
             step=0,
@@ -60,7 +60,7 @@ class TestTrajectory:
 
     def test_finalize(self):
         """Test trajectory finalization."""
-        trajectory = Trajectory(version=1, worker_id="test")
+        trajectory = Trajectory(version=1, worker_id="test", outer_params={})
         trajectory.add_step(step=0, params={"w": torch.randn(3, 3)}, loss=0.5)
 
         final_params = {"w": torch.randn(3, 3)}
@@ -72,7 +72,7 @@ class TestTrajectory:
 
     def test_num_steps(self):
         """Test step counting."""
-        trajectory = Trajectory(version=1, worker_id="test")
+        trajectory = Trajectory(version=1, worker_id="test", outer_params={})
 
         for i in range(5):
             trajectory.add_step(i, {"w": torch.randn(2, 2)}, None, 0.1)
@@ -81,7 +81,7 @@ class TestTrajectory:
 
     def test_get_param_delta(self):
         """Test computing parameter delta."""
-        trajectory = Trajectory(version=1, worker_id="test")
+        trajectory = Trajectory(version=1, worker_id="test", outer_params={})
 
         init_w = torch.randn(3, 3)
         trajectory.add_step(0, {"w": init_w.clone()}, None, 1.0)
@@ -110,7 +110,7 @@ class TestMetaState:
         """Test adding trajectory to state."""
         state = MetaState(outer_params={"lr": torch.tensor(0.01)})
 
-        trajectory = Trajectory(version=0, worker_id="test")
+        trajectory = Trajectory(version=0, worker_id="test", outer_params={})
         trajectory.finalize({"w": torch.randn(3, 3)})
 
         state.add_trajectory(trajectory)
