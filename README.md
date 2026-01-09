@@ -2,6 +2,7 @@
 
 **Distributed Nested Optimization Framework with HOPE**
 
+[![CI](https://github.com/ichbingautam/chronos/actions/workflows/ci.yml/badge.svg)](https://github.com/ichbingautam/chronos/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -16,7 +17,7 @@ Chronos is a production-ready framework for High-Order Optimization (HOPE) that 
 ## Installation
 
 ```bash
-git clone https://github.com/chronos-ml/chronos.git
+git clone https://github.com/ichbingautam/chronos.git
 cd chronos
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
@@ -135,9 +136,13 @@ print(f"Throughput: {result.outer_steps_per_second:.2f} steps/sec")
 ## Roadmap
 
 - [x] Phase 1: Core abstractions & single-node solvers
-- [x] Phase 2: Distributed orchestration (coordinator, workers, sparse comm)
-- [x] Phase 3: HOPE features (continuum memory, multi-timescale, benchmarks)
-- [ ] Phase 4: Production hardening (tests, docs, CI/CD)
+- [x] Phase 2: Distributed orchestration
+- [x] Phase 3: HOPE features (continuum memory, multi-timescale)
+- [x] Phase 4: Production hardening (tests, CI/CD)
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
 ## References
 
@@ -147,4 +152,4 @@ print(f"Throughput: {result.outer_steps_per_second:.2f} steps/sec")
 
 ## License
 
-MIT License
+MIT License - see [LICENSE](LICENSE) for details.
