@@ -133,13 +133,6 @@ result = runner.run(create_problem, create_optimizer)
 print(f"Throughput: {result.outer_steps_per_second:.2f} steps/sec")
 ```
 
-## Roadmap
-
-- [x] Phase 1: Core abstractions & single-node solvers
-- [x] Phase 2: Distributed orchestration
-- [x] Phase 3: HOPE features (continuum memory, multi-timescale)
-- [x] Phase 4: Production hardening (tests, CI/CD)
-
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
