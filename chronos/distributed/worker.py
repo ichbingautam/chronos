@@ -25,11 +25,11 @@ from torch import Tensor
 from chronos.core.problem import InnerProblem
 from chronos.core.state import Trajectory
 from chronos.distributed.protocols import (
-    MessageType,
     CheckoutRequest,
     CheckoutResponse,
     CommitRequest,
     CommitResponse,
+    MessageType,
 )
 from chronos.utils.logging import get_logger
 
