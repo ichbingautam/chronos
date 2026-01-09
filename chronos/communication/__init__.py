@@ -1,15 +1,15 @@
 """Communication utilities for Chronos."""
 
+from chronos.communication.compression import (
+    compress_gradients,
+    decompress_gradients,
+    dequantize,
+    quantize,
+    topk_sparsify,
+)
 from chronos.communication.sparse import (
     SignificanceFilter,
     SignificanceFilterConfig,
-)
-from chronos.communication.compression import (
-    topk_sparsify,
-    dequantize,
-    quantize,
-    compress_gradients,
-    decompress_gradients,
 )
 
 __all__ = [

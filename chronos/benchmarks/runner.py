@@ -7,7 +7,7 @@ different optimization strategies (sync vs async, sparse vs dense).
 
 import json
 import time
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 

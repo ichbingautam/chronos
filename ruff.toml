@@ -10,11 +10,11 @@ select = [
     "I",    # isort
     "B",    # flake8-bugbear
     "C4",   # flake8-comprehensions
-    "UP",   # pyupgrade
 ]
 ignore = [
     "E501",   # line too long (handled by formatter)
     "B008",   # function calls in argument defaults
+    "F401",   # unused imports (some are intentional re-exports)
 ]
 
 [lint.isort]
