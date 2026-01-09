@@ -10,6 +10,8 @@ Chronos is a production-ready framework for High-Order Optimization (HOPE) that 
 - **Versioned Bounded Asynchrony**: Contains staleness cascade without blocking
 - **Hybrid State Management**: Sharded coordinator + peer-to-peer for scalability
 - **Significance-Triggered Communication**: 40% network reduction via sparse protocols
+- **Continuum Memory System**: Learn from optimization history for faster convergence
+- **Multi-Timescale Updates**: Different update frequencies for different hyperparameters
 
 ## Installation
 
@@ -28,7 +30,6 @@ pip install -e ".[dev]"
 from chronos.core import InnerProblem, MetaState
 from chronos.solver import ImplicitDifferentiation
 
-# Define your problem and run optimization
 outer_opt = ImplicitDifferentiation(
     outer_params={"lr": torch.tensor(0.01)},
     lr=0.001
@@ -42,40 +43,44 @@ for step in range(100):
 
 ### Distributed Training
 
-**Start coordinator:**
-
 ```python
-from chronos.distributed import Coordinator
+from chronos.distributed import Coordinator, Worker, WorkerConfig
 
+# Start coordinator
 coordinator = Coordinator(
-    outer_params={"lr": 0.01, "weight_decay": 0.001},
+    outer_params={"lr": 0.01},
     port=5555,
-    max_in_flight=3  # Bounded staleness
+    max_in_flight=3
 )
 coordinator.start()
+
+# Start workers
+worker = Worker(inner_problem, WorkerConfig(
+    coordinator_addr="tcp://localhost:5555",
+    significance_threshold=0.01
+))
+worker.connect()
+worker.run()
 ```
 
-**Start workers (on different machines/processes):**
+### HOPE Features
 
 ```python
-from chronos.distributed import Worker, WorkerConfig
+from chronos.continuum import ContinuumMemory, MultiTimescaleOptimizer
 
-config = WorkerConfig(
-    coordinator_addr="tcp://coordinator-host:5555",
-    inner_steps=100,
-    significance_threshold=0.01  # Sparse communication
-)
+# Memory-augmented optimization
+memory = ContinuumMemory()
+for step in range(100):
+    # Store optimization state
+    memory.store(outer_params, hypergradient, val_loss, step)
 
-worker = Worker(inner_problem, config)
-worker.connect()
-worker.run(num_iterations=1000)
-```
+    # Retrieve similar historical states
+    neighbors = memory.retrieve_similar(outer_params, k=5)
+    predicted = memory.predict_gradient(outer_params)
 
-## Examples
-
-```bash
-# Data hyper-cleaning (single-node)
-python examples/hyperclean.py --noise-ratio 0.4 --outer-steps 20
+# Multi-timescale updates
+optimizer = MultiTimescaleOptimizer(outer_params, config)
+optimizer.step(hypergradient)  # Updates at different frequencies
 ```
 
 ## Architecture
@@ -83,7 +88,7 @@ python examples/hyperclean.py --noise-ratio 0.4 --outer-steps 20
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      COORDINATOR                            │
-│  VersionTracker │ MetaState │ ZeroMQ Server                │
+│  VersionTracker │ MetaState │ ContinuumMemory               │
 └─────────────────────────────────────────────────────────────┘
             │                  │                  │
     ┌───────┴────────┐ ┌───────┴────────┐ ┌───────┴────────┐
@@ -102,7 +107,8 @@ chronos/
 ├── solver/         # Implicit & unrolled differentiation
 ├── distributed/    # Coordinator, Worker, ZeroMQ protocols
 ├── communication/  # Sparse protocols, compression
-└── continuum/      # HOPE memory systems (Phase 3)
+├── continuum/      # HOPE memory systems, multi-timescale
+└── benchmarks/     # Performance measurement tools
 ```
 
 ## Key Features
@@ -112,14 +118,26 @@ chronos/
 | **Bounded Staleness** | Max 3 versions in-flight, exponential decay weights |
 | **Significance Filter** | Only sync when `\|\|Δ\|\|/\|\|θ\|\| > threshold` |
 | **Top-k Sparsification** | Keep only k largest gradients |
-| **Error Feedback** | Preserve gradient info across sparse updates |
-| **INT8 Quantization** | Optional precision reduction |
+| **Continuum Memory** | Learn from historical optimization paths |
+| **Multi-Timescale** | Fast/medium/slow update frequencies |
+
+## Benchmarking
+
+```python
+from chronos.benchmarks import BenchmarkRunner, BenchmarkConfig
+
+config = BenchmarkConfig(name="my_benchmark", num_outer_steps=100)
+runner = BenchmarkRunner(config)
+result = runner.run(create_problem, create_optimizer)
+print(f"Throughput: {result.outer_steps_per_second:.2f} steps/sec")
+```
 
 ## Roadmap
 
 - [x] Phase 1: Core abstractions & single-node solvers
 - [x] Phase 2: Distributed orchestration (coordinator, workers, sparse comm)
-- [ ] Phase 3: HOPE features (continuum memory, multi-timescale updates)
+- [x] Phase 3: HOPE features (continuum memory, multi-timescale, benchmarks)
+- [ ] Phase 4: Production hardening (tests, docs, CI/CD)
 
 ## References
 
