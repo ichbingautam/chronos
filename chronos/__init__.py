@@ -11,6 +11,7 @@ __version__ = "0.1.0"
 
 from chronos.core.problem import InnerProblem, OuterOptimizer
 from chronos.core.state import Checkpoint, MetaState, Trajectory
+from chronos.scheduler.dag_engine import DAGScheduler, Task
 
 __all__ = [
     "InnerProblem",
@@ -18,4 +19,6 @@ __all__ = [
     "MetaState",
     "Trajectory",
     "Checkpoint",
+    "DAGScheduler",
+    "Task",
 ]
