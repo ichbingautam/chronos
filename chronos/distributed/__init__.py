@@ -1,5 +1,12 @@
 """Distributed orchestration components for Chronos."""
 
+from chronos.distributed.autoscaler import (
+    AutoscalerConfig,
+    AutoscalingMetrics,
+    ElasticWorkerPoolManager,
+    WorkerNode,
+    WorkerNodeState,
+)
 from chronos.distributed.coordinator import Coordinator
 from chronos.distributed.protocols import (
     CheckoutRequest,
@@ -18,4 +25,9 @@ __all__ = [
     "CheckoutResponse",
     "CommitRequest",
     "CommitResponse",
+    "AutoscalerConfig",
+    "AutoscalingMetrics",
+    "ElasticWorkerPoolManager",
+    "WorkerNode",
+    "WorkerNodeState",
 ]
